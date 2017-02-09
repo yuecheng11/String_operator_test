@@ -59,7 +59,8 @@ String& String::operator=(const char *s)
 String &String::operator+=(const String &s)
 {
  
-	char* tmp = pstr_;
+	char* tmp = new char[strlen(pstr_) + 1];
+	strcpy(tmp,pstr_);
 
 	cout<<"tmp is : "<<tmp<<endl;
 	if(pstr_ != NULL)
@@ -67,15 +68,23 @@ String &String::operator+=(const String &s)
 		delete []pstr_;
 	}
 	pstr_ = new char[strlen(tmp) + strlen(s.pstr_) +1];
+	//strcpy(pstr_,tmp);
 	strcpy(pstr_,tmp);
+	cout<<pstr_<<endl;
 	strcat(pstr_,s.pstr_);
+	cout<<pstr_<<endl;
 
+	delete tmp;
+	
 	return *this;
 }
 
 String &String::operator+=(const char *str)
 {
-	char* tmp = pstr_;
+	
+	char* tmp = new char[strlen(pstr_) + 1];
+	strcpy(tmp,pstr_);
+	
 
 	cout<<"tmp is : "<<tmp<<endl;
 	if(pstr_ != NULL)
@@ -85,7 +94,7 @@ String &String::operator+=(const char *str)
 	pstr_ = new char[strlen(tmp) + strlen(str) +1];
 	strcpy(pstr_,tmp);
 	strcat(pstr_,str);
-
+	delete [] tmp;
 	return *this;
 }
 
